@@ -2,7 +2,7 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
-    <TodoList></TodoList>
+    <TodoList :todo-arr="todoItems"></TodoList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -12,6 +12,7 @@ import TodoHeader from '@/components/TodoHeader'
 import TodoInput from '@/components/TodoInput.vue'
 import TodoList from '@/components/TodoList.vue'
 import TodoFooter from '@/components/TodoFooter.vue'
+import { onBeforeMount, reactive } from 'vue';
 
 export default {
   name: 'App',
@@ -20,7 +21,22 @@ export default {
     TodoInput,
     TodoList,
     TodoFooter
-  }
+  },
+  setup() {
+    const todoItems = reactive([]);
+
+    onBeforeMount(() => {
+      if (localStorage.length > 0) {
+        for (var i = 0; i < localStorage.length; i++) {
+          const itemJson = localStorage.getItem(localStorage.key(i))
+          if (itemJson) {
+            todoItems.push(JSON.parse(itemJson));
+          } //if
+        } //for
+      } //if
+    });
+    return { todoItems };
+  }, //setup
 }
 </script>
 

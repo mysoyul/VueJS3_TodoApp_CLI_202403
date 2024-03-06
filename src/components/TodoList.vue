@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="(todo, index) in todoItems" :key="index" class="shadow">
+            <li v-for="(todo, index) in props.todoArr" :key="index" class="shadow">
                 <i class="fas fa-check checkBtn" :class="{ checkBtnCompleted: todo.completed }"
                  @click="toggleComplete(todo)"></i>
                 <span :class="{ textCompleted: todo.completed }">{{ todo.item }}</span>
@@ -14,18 +14,12 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { ref } from 'vue'
+
+const props = defineProps(['todoArr'])
 
 const todoItems = ref([])
 
-onBeforeMount(() => {
-    if (localStorage.length > 0) {
-        for (var i = 0; i < localStorage.length; i++) {
-            const itemJson = localStorage.getItem(localStorage.key(i));
-            todoItems.value.push(JSON.parse(itemJson))
-        }
-    }
-})
 
 const removeTodo = (todoItem, index) => {
     localStorage.removeItem(todoItem)
