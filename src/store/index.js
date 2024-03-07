@@ -32,11 +32,19 @@ export const store = createStore({
                 .then(items => commit('setTodoItems', items))
                 .catch(error => {
                     if (axios.isAxiosError(error)) {
-                        console.log(error?.response?.status +' : ' + error.message)
+                        console.log(error?.response?.status + ' : ' + error.message)
                     } else {
                         console.error(error);
                     }
                 });
+        },
+        addTodo({ commit }, payload) {
+            http
+                .post(`/todos`, payload)
+                .then(r => r.data)
+                .then(items => {
+                    commit('setTodoItems', items)
+                })
         },
     },
     mutations: {
