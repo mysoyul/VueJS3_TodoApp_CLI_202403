@@ -2,7 +2,9 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput @add:todo="addTodo"></TodoInput>
-    <TodoList :todo-arr="todoItems" @remove:todo="removeTodo"></TodoList>
+    <TodoList :todo-arr="todoItems" 
+      @remove:todo="removeTodo"
+      @toggle:todo="toggleComplete"></TodoList>
     <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -47,7 +49,14 @@ export default {
       todoItems.splice(index, 1);
     };
 
-    return { todoItems, addTodo, removeTodo };
+    const toggleComplete = (todoItem, index) => {
+      const { completed, item } = todoItem;
+      todoItems[index].completed = !completed;
+      localStorage.removeItem(item);
+      localStorage.setItem(item, JSON.stringify(todoItems[index]));
+    };
+
+    return { todoItems, addTodo, removeTodo, toggleComplete };
   }, //setup
 }
 </script>
