@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput @add:todo="addTodo"></TodoInput>
+    <TodoInput></TodoInput>
     <TodoList @remove:todo="removeTodo" @toggle:todo="toggleComplete"></TodoList>
     <TodoFooter @clear:todo="clearTodo"></TodoFooter>
   </div>
@@ -25,12 +25,6 @@ export default {
   setup() {
     const todoItems = reactive([]);
 
-    const addTodo = (todoItemStr) => {
-      const todoItemObj = { completed: false, item: todoItemStr };
-      localStorage.setItem(todoItemStr, JSON.stringify(todoItemObj));
-      todoItems.push(todoItemObj);
-    };//addTodo
-
     const removeTodo = (todoItemStr, index) => {
       localStorage.removeItem(todoItemStr);
       todoItems.splice(index, 1);
@@ -48,7 +42,7 @@ export default {
       todoItems.splice(0)
     }
 
-    return { addTodo, removeTodo, toggleComplete, clearTodo };
+    return { removeTodo, toggleComplete, clearTodo };
   }, //setup
 }
 </script>
