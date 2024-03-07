@@ -40,6 +40,7 @@ const [title, titleAttrs] = defineField('title');
 
 const onSubmit = handleSubmit((values) => {
     alert(JSON.stringify(values, null, 2));
+    
     store.dispatch('modulePost/addPost', values).then(() => {
         router.push('/posts');
     });
