@@ -1,4 +1,5 @@
 import { createStore, createLogger } from "vuex"
+import http from "@/common/http-common"
 
 const storage = {
     fetch() {
@@ -21,6 +22,9 @@ export const store = createStore({
         [createLogger()] : [],
     state: {
         todoItems: storage.fetch()
+    },
+    actions: {
+
     },
     mutations: {
         addTodo(state, todoItem) {
