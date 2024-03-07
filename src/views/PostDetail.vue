@@ -33,6 +33,7 @@ const removePost = (id) => {
     store.dispatch("modulePost/removePost", id);
     router.push("/posts");
 };
+
 const fetchData = () => {
     if (route.params.id) {
         store.dispatch("modulePost/loadPost", { id: +route.params.id })
